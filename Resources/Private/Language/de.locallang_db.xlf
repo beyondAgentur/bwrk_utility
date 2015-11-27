@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+	<file target-language="de" datatype="plaintext" original="messages" date="2014-07-11T13:30:00Z" product-name="bwrk_monsterkill">
+		<header/>
+		<body>
+			<trans-unit id="flexform.table.title" xml:space="preserve">
+				<target>Spezielle Bootstrap Optionen</target>
+			</trans-unit>
+			<trans-unit id="flexform.table.bootstrap" xml:space="preserve">
+				<target>Bootstrap</target>
+			</trans-unit>
+			<trans-unit id="flexform.table.bootstrap.hover" xml:space="preserve">
+				<target>.table-hover</target>
+			</trans-unit>
+			<trans-unit id="flexform.table.bootstrap.bordered" xml:space="preserve">
+				<target>.table-bordered</target>
+			</trans-unit>
+			<trans-unit id="flexform.table.bootstrap.striped" xml:space="preserve">
+				<target>.table-striped</target>
+			</trans-unit>
+			<trans-unit id="flexform.table.bootstrap.responsive" xml:space="preserve">
+				<target>.table-responsive</target>
+			</trans-unit>
+			<trans-unit id="flexform.table.bootstrap.condensed" xml:space="preserve">
+				<target>.table-condensed</target>
+			</trans-unit>
+			
+			<trans-unit id="flexform.table.tablesorter" xml:space="preserve">
+				<target>Tablesorter</target>
+			</trans-unit>
+			<trans-unit id="flexform.table.tablesorter.sortable" xml:space="preserve">
+				<target>Sortierbar</target>
+			</trans-unit>
+
+			<trans-unit id="tx_bwrkmonsterkill.tx_extbase_type" xml:space="preserve">
+				<target>Extbase Typ</target>
+			</trans-unit>
+			<trans-unit id="tx_bwrkmonsterkill.default_typo3_conf" xml:space="preserve">
+				<target>Standard Typo3 Configuration</target>
+			</trans-unit>
+
+			<trans-unit id="tx_bwrkmonsterkill.tx_bwrkmonsterkill_foundation_imglist" xml:space="preserve">
+				<target>Aktivieren zum Klicken</target>
+			</trans-unit>
+			<trans-unit id="tx_bwrkmonsterkill.tx_bwrkmonsterkill_foundation_imglist.title" xml:space="preserve">
+				<target>Foundation Image-Block-Grid</target>
+			</trans-unit>
+			<trans-unit id="tx_bwrkmonsterkill.tx_bwrkmonsterkill_foundation_imglist_classes" xml:space="preserve">
+				<target>Zusätzliche CSS-Klassen (Standard ist abhängig von "Anzahl an Spalten")</target>
+			</trans-unit>
+
+			<trans-unit id="sys_category.tx_extbase_type.default" xml:space="preserve">
+				<target>-</target>
+			</trans-unit>
+
+			<trans-unit id="tx_bwrkmonsterkill.RTE.classesAnchor.externalLink" xml:space="preserve">
+				<source>öffnet externen Link im aktuellen Fenster</source>
+			</trans-unit>
+
+			<trans-unit id="tx_bwrkmonsterkill.RTE.classesAnchor.externalLinkInNewWindow" xml:space="preserve">
+				<source>öffnet externen Link im aktuellen Fenster</source>
+			</trans-unit>
+
+		</body>
+	</file>
+</xliff>

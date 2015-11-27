@@ -1,0 +1,1 @@
+Flexform wird per TCA-Utility generiert und ist unter Classes/Configuration/FlexForm anzulegen.

@@ -65,7 +65,7 @@ class AbstractTca
                     'items' => array(
                         array('', 0),
                     ),
-                    'foreign_table' => $this->conf->getModel(),
+                    'foreign_table' => $this->conf->getModelClass(),
                     'foreign_table_where' =>
                         'AND ' . $this->conf->getModel() . '.pid = ###CURRENT_PID### AND ' . $this->conf->getModel() . '.sys_language_uid IN (-1,0)',
                 ),

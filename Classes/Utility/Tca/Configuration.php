@@ -39,7 +39,10 @@ class Configuration
      */
     protected $enableColumns = array();
 
-
+    /**
+     * @var string
+     */
+    protected $modelClass = '';
 
     /**
      * @param string $ext
@@ -169,5 +172,19 @@ class Configuration
         $this->plugin = $plugin;
     }
 
+    /**
+     * @return string
+     */
+    public function getModelClass()
+    {
+        return $this->modelClass;
+    }
 
+    /**
+     * @param string $modelClass
+     */
+    public function setModelClass($modelClass)
+    {
+        $this->modelClass = $modelClass;
+    }
 }

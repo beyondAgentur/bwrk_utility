@@ -345,7 +345,7 @@ class AbstractTca
      * @param array $overwriteConfig
      * @return array
      */
-    public function addReferenceField($fieldName, $foreignTable, $foreignField, $foreignSortby, $foreignTableField, array $foreignMatchFields, $foreignLabel, $foreignSelector, $exclude = 0, $maxitems = 999, $minitems = 0, $label = '', $overwriteConfig = array())
+    public function addReferenceField($fieldName, $foreignTable, $foreignField, $foreignSortby, $foreignTableField = null, array $foreignMatchFields = array(), $foreignLabel = null, $foreignSelector = null, $exclude = 0, $maxitems = 999, $minitems = 0, $label = '', $overwriteConfig = array())
     {
         if (empty($label))
         {

@@ -46,6 +46,7 @@ class Tca extends AbstractTca
             'ctrl' => array(
                 'hideTable' => $this->conf->isHideTable(),
                 'title' => $this->conf->getLl(),
+                'label' => $this->conf->getLabelField(),
                 'tstamp' => 'tstamp',
                 'crdate' => 'crdate',
                 'cruser_id' => 'cruser_id',
@@ -74,16 +75,11 @@ class Tca extends AbstractTca
             ),
         );
 
-        $labelField = $this->conf->getLabelField();
         $labelUserFunc = $this->conf->getLabelUserFunc();
 
         if (!empty($labelUserFunc))
         {
             $tca['ctrl']['label_userFunc'] = $labelUserFunc;
-        }
-        else
-        {
-            $tca['ctrl']['label'] = $labelField;
         }
 
         return $tca;

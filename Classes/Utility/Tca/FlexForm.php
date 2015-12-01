@@ -50,22 +50,20 @@ abstract class FlexForm extends AbstractTca
     public function renderFlexForm()
     {
         $data = array(
-            'name' => 'T3DataStructure', // "name" required, all else optional
-            array_merge(array(
-                'name' => 'sheets'
-            ),
-                $this->formSheetsForXml($this->sheets)
-            ),
+            array(
+                'name' => 'sheets',
+                'value' => $this->formSheetsForXml($this->sheets)
+            )
         );
 
-        $doc = new \DOMDocument();
-        $child = $this->generateXmlElement($doc, $data);
-        if ($child)
-            $doc->appendChild($child);
-        $doc->formatOutput = true; // Add whitespace to make easier to read XML
-        $xml = $doc->saveXML();
+        $xml = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><T3DataStructure/>');
 
-        return $xml;
+        $this->generateXmlElement($xml, $data);
+
+        $dom = dom_import_simplexml($xml)->ownerDocument;
+        $dom->formatOutput = true;
+
+        return $dom->saveXML();
     }
 
     /**
@@ -75,26 +73,32 @@ abstract class FlexForm extends AbstractTca
     private function formSheetsForXml($sheets)
     {
         $sheetsArray = array();
-        foreach ($sheets as $key => $value) {
+
+        foreach ($sheets as $sheet => $fields) {
             $sheetsArray[] = array(
-                'name' => $key,
-                array(
-                    'name' => 'ROOT',
+                'name' => $sheet,
+                'value' => array(
                     array(
-                        'name' => 'TCEforms',
-                        array(
-                            'name' => 'sheetTitle',
-                            'value' => $this->conf->getLl() . '.' . $key
-                        ),
-                    ),
-                    array(
-                        'name' => 'type',
-                        'value' => 'array'
-                    ),
-                    array_merge(array(
-                        'name' => 'el'
-                    ),
-                        $this->formFieldsForXml($value, $key)
+                        'name' => 'ROOT',
+                        'value' => array(
+                            array(
+                                'name' => 'TCEforms',
+                                'value' => array(
+                                    array(
+                                        'name' => 'sheetTitle',
+                                        'value' => $this->conf->getLl() . '.' . $sheet
+                                    )
+                                )
+                            ),
+                            array(
+                                'name' => 'type',
+                                'value' => 'array'
+                            ),
+                            array(
+                                'name' => 'el',
+                                'value' => $this->formFieldsForXml($fields, $sheet)
+                            )
+                        )
                     )
                 )
             );
@@ -114,12 +118,16 @@ abstract class FlexForm extends AbstractTca
         $fieldsArray = array();
         foreach ($fields as $field) {
             foreach ($field as $key => $value) {
+
+                $formValuesForXml = $this->formValuesForXml($value);
+
                 $fieldsArray[$fieldsArrayCounter] = array(
                     'name' => 'settings.' . $key,
-                    array_merge(array(
-                        'name' => 'TCEforms',
-                    ),
-                        $this->formValuesForXml($value)
+                    'value' => array(
+                        array(
+                            'name' => 'TCEforms',
+                            'value' => $formValuesForXml
+                        )
                     )
                 );
 
@@ -144,19 +152,12 @@ abstract class FlexForm extends AbstractTca
     private function formValuesForXml($values)
     {
         $valuesArray = array();
+
         foreach ($values as $key => $value) {
             if (is_array($value)) {
-                $valuesTmpArray = array();
-                foreach ($value as $key1 => $value1) {
-                    $valuesTmpArray[] = array(
-                        'name' => $key1,
-                        'value' => $value1
-                    );
-                }
-                $valuesArray[] = array_merge(array(
+                $valuesArray[] = array(
                     'name' => $key,
-                ),
-                    $valuesTmpArray
+                    'value' => $this->formValuesForXml($value)
                 );
             } else {
                 $valuesArray[] = array(
@@ -165,37 +166,37 @@ abstract class FlexForm extends AbstractTca
                 );
             }
         }
+
         return $valuesArray;
     }
 
     /**
-     * @param \DOMDocument $dom
-     * @param $data
-     * @return bool|\DOMElement
+     * @param \SimpleXMLElement $xmlElement
+     * @param mixed $data
      */
-    private function generateXmlElement(\DOMDocument $dom, $data)
+    private function generateXmlElement($xmlElement, $data)
     {
-        if (empty($data['name']))
-            return false;
+        foreach ($data as $element)
+        {
+            $elementName = $element['name'];
+            $elementValue = $element['value'];
 
-        $element_value = (!empty($data['value'])) ? $data['value'] : null;
-        $element = $dom->createElement($data['name'], $element_value);
+            if (empty($elementName))
+            {
+                continue;
+            }
 
-        if (!empty($data['attributes']) && is_array($data['attributes'])) {
-            foreach ($data['attributes'] as $attribute_key => $attribute_value) {
-                $element->setAttribute($attribute_key, $attribute_value);
+            if (!is_array($elementValue))
+            {
+                $xmlElement->addChild($elementName, $elementValue);
+            }
+            else
+            {
+                $xmlChild = $xmlElement->addChild($elementName);
+
+                $this->generateXmlElement($xmlChild, $elementValue);
             }
         }
-        foreach ($data as $data_key => $child_data) {
-            if (!is_numeric($data_key))
-                continue;
-
-            $child = $this->generateXmlElement($dom, $child_data);
-            if ($child)
-                $element->appendChild($child);
-        }
-
-        return $element;
     }
 
     /**

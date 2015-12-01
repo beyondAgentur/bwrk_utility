@@ -3,6 +3,7 @@
 namespace BERGWERK\BwrkUtility\Utility\Tca;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Class AbstractClass
@@ -452,13 +453,15 @@ class AbstractTca
             'MM_opposite_field' => $mmOppositeField,
             'size' => $size,
             'maxitems' => $maxItems,
-            'minitems' => $minitems,
+            'minitems' => $minitems
         );
+
+        $mergedConfig = array_merge($config, $overwriteConfig);
 
         $this->fields[$fieldName] = array(
             'exclude' => $exclude,
             'label' => $label,
-            'config' => GeneralUtility::array_merge($config, $overwriteConfig)
+            'config' => $mergedConfig
         );
 
         if (!empty($foreignTableWhere))

@@ -4,6 +4,7 @@ namespace BERGWERK\BwrkUtility;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 class Configuration
 {
@@ -29,7 +30,9 @@ class Configuration
 
             $arrayKey = explode('.', $key);
 
-            self::$_cache[$key] = self::getConfigurationSub($setup, $arrayKey);
+            $configuration = self::getConfigurationSub($setup, $arrayKey);
+
+            self::$_cache[$key] = $configuration;
         }
 
         return self::$_cache[$key];
@@ -43,6 +46,7 @@ class Configuration
     protected static function getConfigurationSub($data, $key)
     {
         $currentKey = array_shift($key);
+        $nextKey = isset($key[0]) ? $key[0] : null;
 
         if (count($key) > 0) {
             $currentKey .= '.';
@@ -52,7 +56,7 @@ class Configuration
 
         $currentData = $data[$currentKey];
 
-        if (!is_array($currentData)) return $currentData;
+        if (!is_array($currentData) || empty($nextKey)) return $currentData;
 
         return self::getConfigurationSub($currentData, $key);
     }

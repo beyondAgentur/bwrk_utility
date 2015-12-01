@@ -42,10 +42,10 @@ class Tca extends AbstractTca
         $this->addTab('default_typo3_conf', 'LLL:EXT:bwrk_utility/Resources/Private/Language/locallang_db.xlf:tx_bwrkutility.default_typo3_conf');
         $this->setDefaultFields();
 
-        return array(
+        $tca = array(
             'ctrl' => array(
+                'hideTable' => $this->conf->isHideTable(),
                 'title' => $this->conf->getLl(),
-                'label' => $this->conf->getLabelField(),
                 'tstamp' => 'tstamp',
                 'crdate' => 'crdate',
                 'cruser_id' => 'cruser_id',
@@ -73,5 +73,19 @@ class Tca extends AbstractTca
                 '1' => array('showitem' => ''),
             ),
         );
+
+        $labelField = $this->conf->getLabelField();
+        $labelUserFunc = $this->conf->getLabelUserFunc();
+
+        if (!empty($labelUserFunc))
+        {
+            $tca['ctrl']['label_userFunc'] = $labelUserFunc;
+        }
+        else
+        {
+            $tca['ctrl']['label'] = $labelField;
+        }
+
+        return $tca;
     }
 }

@@ -289,6 +289,25 @@ class AbstractTca
         $this->fields['tab_' . $tabName] = '--div--;' . $label;
     }
 
+    public function addSelectFieldFunc($fieldName, $itemsProcFunc, $label = '', $exclude = 0)
+    {
+        if (empty($label))
+        {
+            $label = $this->getFieldLabel($fieldName);
+        }
+
+        $this->fields[$fieldName] = array(
+            'exclude' => $exclude,
+            'label' => $label,
+            'config' => array(
+                'type' => 'select',
+                'itemsProcFunc' => $itemsProcFunc
+            )
+        );
+
+        return array($fieldName => $this->fields[$fieldName]);
+    }
+
     /**
      * @param $fieldName
      * @param array $items

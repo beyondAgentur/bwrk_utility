@@ -40,6 +40,16 @@ class Configuration
     protected $enableColumns = array();
 
     /**
+     * @var bool
+     */
+    protected $hideTable = false;
+
+    /**
+     * @var string
+     */
+    protected $labelUserFunc = '';
+    
+    /**
      * @param string $ext
      */
     public function setExt($ext)
@@ -166,4 +176,38 @@ class Configuration
     {
         $this->plugin = $plugin;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isHideTable()
+    {
+        return $this->hideTable;
+    }
+
+    /**
+     * @param boolean $hideTable
+     */
+    public function setHideTable($hideTable)
+    {
+        $this->hideTable = $hideTable;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLabelUserFunc()
+    {
+        return $this->labelUserFunc;
+    }
+
+    /**
+     * @param string $labelUserFunc
+     */
+    public function setLabelUserFunc($labelUserFunc)
+    {
+        $this->labelUserFunc = $labelUserFunc;
+    }
+
+
 }

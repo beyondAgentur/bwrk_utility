@@ -32,7 +32,7 @@ class Configuration
 
             $configuration = self::getConfigurationSub($setup, $arrayKey);
 
-            self::$_cache[$key] = $configuration;
+            self::$_cache[$key] = self::cleanConfigurationArray($configuration);
         }
 
         return self::$_cache[$key];
@@ -59,5 +59,25 @@ class Configuration
         if (!is_array($currentData) || empty($nextKey)) return $currentData;
 
         return self::getConfigurationSub($currentData, $key);
+    }
+
+    protected static function cleanConfigurationArray($array)
+    {
+        if (!is_array($array))
+        {
+            return $array;
+        }
+
+        $clean = array();
+
+        foreach ($array as $key => $value)
+        {
+            $cleanKey = str_replace('.', '', $key);
+            $cleanValue = self::cleanConfigurationArray($value);
+
+            $clean[$cleanKey] = $cleanValue;
+        }
+
+        return $clean;
     }
 }

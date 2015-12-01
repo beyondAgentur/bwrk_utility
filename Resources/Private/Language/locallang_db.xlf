@@ -32,29 +32,29 @@
 				<source>Sortable</source>
 			</trans-unit>
 
-			<trans-unit id="tx_bwrkmonsterkill.tx_extbase_type" xml:space="preserve">
+			<trans-unit id="tx_bwrkutility.tx_extbase_type" xml:space="preserve">
 				<source>Extbase Type</source>
 			</trans-unit>
-			<trans-unit id="tx_bwrkmonsterkill.default_typo3_conf" xml:space="preserve">
-				<source>Default Typo3 Conf</source>
+			<trans-unit id="tx_bwrkutility.default_typo3_conf" xml:space="preserve">
+				<source>TYPO3 Configuration</source>
 			</trans-unit>
 
-			<trans-unit id="tx_bwrkmonsterkill.tx_bwrkmonsterkill_foundation_imglist" xml:space="preserve">
+			<trans-unit id="tx_bwrkutility.tx_bwrkutility_foundation_imglist" xml:space="preserve">
 				<source>Click to Activate</source>
 			</trans-unit>
-			<trans-unit id="tx_bwrkmonsterkill.tx_bwrkmonsterkill_foundation_imglist.title" xml:space="preserve">
+			<trans-unit id="tx_bwrkutility.tx_bwrkutility_foundation_imglist.title" xml:space="preserve">
 				<source>Foundation Image-Block-Grid</source>
 			</trans-unit>
-			<trans-unit id="tx_bwrkmonsterkill.tx_bwrkmonsterkill_foundation_imglist_classes" xml:space="preserve">
+			<trans-unit id="tx_bwrkutility.tx_bwrkutility_foundation_imglist_classes" xml:space="preserve">
 				<source>Additional Classes (Default depends on "Number of Columns")</source>
 			</trans-unit>
 			<trans-unit id="sys_category.tx_extbase_type.default" xml:space="preserve">
 				<source>-</source>
 			</trans-unit>
-			<trans-unit id="tx_bwrkmonsterkill.RTE.classesAnchor.externalLink" xml:space="preserve">
+			<trans-unit id="tx_bwrkutility.RTE.classesAnchor.externalLink" xml:space="preserve">
 				<source>Opens external link in current window</source>
 			</trans-unit>
-			<trans-unit id="tx_bwrkmonsterkill.RTE.classesAnchor.externalLinkInNewWindow" xml:space="preserve">
+			<trans-unit id="tx_bwrkutility.RTE.classesAnchor.externalLinkInNewWindow" xml:space="preserve">
 				<source>Opens external link in new window</source>
 			</trans-unit>
 		</body>

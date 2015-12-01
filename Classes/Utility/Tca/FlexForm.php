@@ -131,10 +131,10 @@ abstract class FlexForm extends AbstractTca
                     )
                 );
 
-                foreach ($fieldsArray[$fieldsArrayCounter][0] as $key1 => $value1) {
+                foreach ($fieldsArray[$fieldsArrayCounter]['value'] as $key1 => $value1) {
                     if (is_array($value1)) {
                         if ($value1['name'] == 'label') {
-                            $fieldsArray[$fieldsArrayCounter][0][$key1]['value'] = $this->conf->getLl() . '.' . $sheetTitle . '.' . $key;
+                            $fieldsArray[$fieldsArrayCounter]['value'][$key1]['value'] = $this->conf->getLl() . '.' . $sheetTitle . '.' . $key;
                         }
                     }
                 }

@@ -520,6 +520,17 @@ class AbstractTca
         return array($fieldName => $this->fields[$fieldName]);
     }
 
+    public function  addFalImageReference($fieldName, $exclude = 0, $minitems = 0, $maxitems = 999, $label = '')
+    {
+        return $this->addSysFileReference(
+            $fieldName,
+            $exclude,
+            $minitems,
+            $maxitems,
+            $label,
+            'gif,jpg,jpeg,tif,tiff,bmp,pcx,tga,png,pdf,ai');
+    }
+
     /**
      * @param $fieldName
      * @param int $exclude

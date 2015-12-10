@@ -181,7 +181,7 @@ abstract class FlexForm extends AbstractTca
             $elementName = $element['name'];
             $elementValue = $element['value'];
 
-            if (empty($elementName))
+            if (empty($elementName) || empty($elementValue))
             {
                 continue;
             }

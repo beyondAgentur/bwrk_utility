@@ -522,7 +522,49 @@ class AbstractTca
         return array($fieldName => $this->fields[$fieldName]);
     }
 
-    public function  addFalImageReference($fieldName, $exclude = 0, $minitems = 0, $maxitems = 999, $label = '', $displayCond = null)
+    /**
+     * @param $fieldName
+     * @param int $exclude
+     * @param int $size
+     * @param int $minitems
+     * @param int $maxitems
+     * @param string $label
+     * @return array
+     */
+    public function addSysCategoryReferencesFlexForm(
+        $fieldName,
+        $exclude = 0,
+        $size = 10,
+        $minitems = 0,
+        $maxitems = 999,
+        $label = '')
+    {
+        $foreignTableWhere = " AND sys_category.sys_language_uid IN (-1, 0) ORDER BY sys_category.sorting ASC";
+
+        $this->addMultipleRelationField(
+            $fieldName,
+            'sys_category',
+            null,
+            null,
+            $foreignTableWhere,
+            array(),
+            $exclude,
+            $size,
+            $minitems,
+            $maxitems,
+            $label,
+            array(
+                'renderMode' => 'tree',
+                'treeConfig' => array(
+                    'appearance' => array('expandAll' => 1, 'showHeader' => 1),
+                    'parentField' => 'parent'
+                )
+            )
+        );
+        return array($fieldName => $this->fields[$fieldName]);
+    }
+
+    public function addFalImageReference($fieldName, $exclude = 0, $minitems = 0, $maxitems = 999, $label = '', $displayCond = null)
     {
         return $this->addSysFileReference(
             $fieldName,
@@ -543,8 +585,16 @@ class AbstractTca
      * @param string $allowedExtensions
      * @return array
      */
-    public function addSysFileReference($fieldName, $exclude = 0, $minitems = 0, $maxitems = 999, $label = '', $allowedExtensions = '*', $displayCond = null)
+    public function addSysFileReference($fieldName, $exclude = null, $minitems = null, $maxitems = null, $label = null, $allowedExtensions = null, $displayCond = null)
     {
+        if (empty($exclude)) {
+            $exclude = 0;
+        }
+
+        if (empty($allowedExtensions)) {
+            $allowedExtensions = '*';
+        }
+
         $this->addReferenceField(
             $fieldName,
             'sys_file_reference',

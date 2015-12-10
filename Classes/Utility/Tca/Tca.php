@@ -61,7 +61,8 @@ class Tca extends AbstractTca
                 'delete' => 'deleted',
                 'enablecolumns' => $this->conf->getEnableColumns(),
                 'iconfile' => $this->conf->getIconFile(),
-                'searchFields' => $this->getSearchFields()
+                'searchFields' => $this->getSearchFields(),
+                'requestUpdate' => implode(',', $this->conf->getRequestUpdateColumns())
             ),
             'interface' => array(
                 'showRecordFieldList' => $this->getRecordsFieldList(),

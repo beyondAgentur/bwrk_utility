@@ -38,8 +38,7 @@ class AbstractTca
      */
     public function setDefaultFields()
     {
-        if (!array_key_exists('sys_language_uid', $this->fields))
-        {
+        if (!array_key_exists('sys_language_uid', $this->fields)) {
             $this->addRawField('sys_language_uid', array(
                 'exclude' => 1,
                 'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.language',
@@ -55,8 +54,7 @@ class AbstractTca
             ));
         }
 
-        if (!array_key_exists('l10n_parent', $this->fields))
-        {
+        if (!array_key_exists('l10n_parent', $this->fields)) {
             $this->addRawField('l10n_parent', array(
                 'displayCond' => 'FIELD:sys_language_uid:>:0',
                 'exclude' => 1,
@@ -73,8 +71,7 @@ class AbstractTca
             ));
         }
 
-        if (!array_key_exists('l10n_diffsource', $this->fields))
-        {
+        if (!array_key_exists('l10n_diffsource', $this->fields)) {
             $this->addRawField('l10n_diffsource', array(
                 'config' => array(
                     'type' => 'passthrough',
@@ -82,13 +79,11 @@ class AbstractTca
             ));
         }
 
-        if (!array_key_exists('t3ver_label', $this->fields))
-        {
+        if (!array_key_exists('t3ver_label', $this->fields)) {
             $this->addInputField('t3ver_label', 'LLL:EXT:lang/locallang_general.xlf:LGL.versionLabel');
         }
 
-        if (!array_key_exists('hidden', $this->fields))
-        {
+        if (!array_key_exists('hidden', $this->fields)) {
             $this->addCheckField('hidden', 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden');
         }
     }
@@ -108,14 +103,10 @@ class AbstractTca
     public function getShowItems()
     {
         $fieldArr = array();
-        foreach ($this->fields as $key => $value)
-        {
-            if (substr($key, 0, 4) === 'tab_')
-            {
+        foreach ($this->fields as $key => $value) {
+            if (substr($key, 0, 4) === 'tab_') {
                 $fieldArr[$value] = '';
-            }
-            else
-            {
+            } else {
                 $fieldArr[$key] = $value;
             }
         }
@@ -138,10 +129,8 @@ class AbstractTca
     {
         $fieldArr = array();
 
-        foreach ($fields as $key => $value)
-        {
-            if (substr($key, 0, 4) !== 'tab_')
-            {
+        foreach ($fields as $key => $value) {
+            if (substr($key, 0, 4) !== 'tab_') {
                 $fieldArr[$key] = $value;
             }
         }
@@ -179,8 +168,7 @@ class AbstractTca
      */
     public function addCheckField($fieldName, $label = '', $exclude = 0, $default = '')
     {
-        if (empty($label))
-        {
+        if (empty($label)) {
             $label = $this->getFieldLabel($fieldName);
         }
 
@@ -191,8 +179,7 @@ class AbstractTca
                 'type' => 'check',
             ),
         );
-        if(!empty($default))
-        {
+        if (!empty($default)) {
             $this->fields[$fieldName]['config']['default'] = $default;
         }
 
@@ -210,10 +197,9 @@ class AbstractTca
      * @param string $eval
      * @return array
      */
-    public function addInputField($fieldName, $label = '', $exclude = 0, $size = 30, $max = 255, $readOnly = 0, $eval = 'trim')
+    public function addInputField($fieldName, $label = '', $exclude = 0, $size = 30, $max = 255, $readOnly = 0, $eval = 'trim', $displayCond = null)
     {
-        if (empty($label))
-        {
+        if (empty($label)) {
             $label = $this->getFieldLabel($fieldName);
         }
 
@@ -228,6 +214,11 @@ class AbstractTca
                 'readOnly' => $readOnly
             )
         );
+
+        if (!empty($displayCond)) {
+            $this->fields[$fieldName]['displayCond'] = $displayCond;
+        }
+
         return array($fieldName => $this->fields[$fieldName]);
     }
 
@@ -241,10 +232,9 @@ class AbstractTca
      * @param int $rows
      * @return array
      */
-    public function addTextField($fieldName, $rte = false, $label = '', $exclude = 0, $cols = 40, $rows = 6)
+    public function addTextField($fieldName, $rte = false, $label = '', $exclude = 0, $cols = 40, $rows = 6, $displayCond = null)
     {
-        if (empty($label))
-        {
+        if (empty($label)) {
             $label = $this->getFieldLabel($fieldName);
         }
 
@@ -258,10 +248,14 @@ class AbstractTca
             )
         );
 
-        if ($rte)
-        {
+        if (!empty($displayCond)) {
+            $this->fields[$fieldName]['displayCond'] = $displayCond;
+        }
+
+        if ($rte) {
             $this->fields[$fieldName]['defaultExtras'] = 'richtext[]:rte_transform[mode=ts_css]';
         }
+
         return array($fieldName => $this->fields[$fieldName]);
     }
 
@@ -283,8 +277,7 @@ class AbstractTca
      */
     public function addTab($tabName, $label = '')
     {
-        if (empty($label))
-        {
+        if (empty($label)) {
             $label = $this->conf->getLl() . '.' . $tabName;
         }
         $this->fields['tab_' . $tabName] = '--div--;' . $label;
@@ -292,8 +285,7 @@ class AbstractTca
 
     public function addSelectFieldFunc($fieldName, $itemsProcFunc, $label = '', $exclude = 0)
     {
-        if (empty($label))
-        {
+        if (empty($label)) {
             $label = $this->getFieldLabel($fieldName);
         }
 
@@ -319,19 +311,16 @@ class AbstractTca
      */
     public function addSelectField($fieldName, $items = array(), $label = '', $itemsLabelPath = '', $exclude = 0)
     {
-        if (empty($itemsLabelPath))
-        {
+        if (empty($itemsLabelPath)) {
             $itemsLabelPath = $this->conf->getLl();
         }
-        if (empty($label))
-        {
+        if (empty($label)) {
             $label = $this->getFieldLabel($fieldName);
         }
 
         $itemsArr = array();
 
-        foreach ($items as $item)
-        {
+        foreach ($items as $item) {
             array_merge($itemsArr, array(
                 $itemsLabelPath . '.' . $item['name'],
                 $item['value']
@@ -365,10 +354,23 @@ class AbstractTca
      * @param array $overwriteConfig
      * @return array
      */
-    public function addReferenceField($fieldName, $foreignTable, $foreignField, $foreignSortby, $foreignTableField = null, array $foreignMatchFields = array(), $foreignLabel = null, $foreignSelector = null, $exclude = 0, $maxitems = 999, $minitems = 0, $label = '', $overwriteConfig = array())
+    public function addReferenceField(
+        $fieldName,
+        $foreignTable,
+        $foreignField,
+        $foreignSortby,
+        $foreignTableField = null,
+        $foreignMatchFields = array(),
+        $foreignLabel = null,
+        $foreignSelector = null,
+        $exclude = 0,
+        $maxitems = 999,
+        $minitems = 0,
+        $label = '',
+        $overwriteConfig = array(),
+        $displayCond = null)
     {
-        if (empty($label))
-        {
+        if (empty($label)) {
             $label = $this->getFieldLabel($fieldName);
         }
 
@@ -391,6 +393,11 @@ class AbstractTca
             'label' => $label,
             'config' => GeneralUtility::array_merge($config, $overwriteConfig)
         );
+
+        if (!empty($displayCond)) {
+            $this->fields[$fieldName]['displayCond'] = $displayCond;
+        }
+
         return array($fieldName => $this->fields[$fieldName]);
     }
 
@@ -405,8 +412,7 @@ class AbstractTca
      */
     public function addSingleRelationField($fieldName, $foreignTable, $size = 1, $maxItems = 1, $exclude = 0, $label = '')
     {
-        if (empty($label))
-        {
+        if (empty($label)) {
             $label = $this->getFieldLabel($fieldName);
         }
 
@@ -440,8 +446,7 @@ class AbstractTca
      */
     public function addMultipleRelationField($fieldName, $foreignTable, $mmRelationTable, $mmOppositeField, $foreignTableWhere = '', $mmMatchFields = array(), $exclude = 0, $size = 10, $minitems = 0, $maxItems = 999, $label = '', $overwriteConfig = array())
     {
-        if (empty($label))
-        {
+        if (empty($label)) {
             $label = $this->getFieldLabel($fieldName);
         }
 
@@ -464,12 +469,10 @@ class AbstractTca
             'config' => $mergedConfig
         );
 
-        if (!empty($foreignTableWhere))
-        {
+        if (!empty($foreignTableWhere)) {
             $this->fields[$fieldName]['config']['foreign_table_where'] = $foreignTableWhere;
         }
-        if (count($mmMatchFields) > 0)
-        {
+        if (count($mmMatchFields) > 0) {
             $this->fields[$fieldName]['config']['MM_match_fields'] = $mmMatchFields;
         }
         return array($fieldName => $this->fields[$fieldName]);
@@ -489,8 +492,7 @@ class AbstractTca
     {
         $foreignTableWhere = " AND sys_category.sys_language_uid IN (-1, 0) ORDER BY sys_category.sorting ASC";
 
-        if (!empty($extbaseType))
-        {
+        if (!empty($extbaseType)) {
             $foreignTableWhere = " AND sys_category.tx_extbase_type = '" . $extbaseType . "' " . $foreignTableWhere;
         }
 
@@ -520,7 +522,7 @@ class AbstractTca
         return array($fieldName => $this->fields[$fieldName]);
     }
 
-    public function  addFalImageReference($fieldName, $exclude = 0, $minitems = 0, $maxitems = 999, $label = '')
+    public function  addFalImageReference($fieldName, $exclude = 0, $minitems = 0, $maxitems = 999, $label = '', $displayCond = null)
     {
         return $this->addSysFileReference(
             $fieldName,
@@ -528,7 +530,8 @@ class AbstractTca
             $minitems,
             $maxitems,
             $label,
-            'gif,jpg,jpeg,tif,tiff,bmp,pcx,tga,png,pdf,ai');
+            'gif,jpg,jpeg,tif,tiff,bmp,pcx,tga,png,pdf,ai',
+            $displayCond);
     }
 
     /**
@@ -540,7 +543,7 @@ class AbstractTca
      * @param string $allowedExtensions
      * @return array
      */
-    public function addSysFileReference($fieldName, $exclude = 0, $minitems = 0, $maxitems = 999, $label = '', $allowedExtensions = '*')
+    public function addSysFileReference($fieldName, $exclude = 0, $minitems = 0, $maxitems = 999, $label = '', $allowedExtensions = '*', $displayCond = null)
     {
         $this->addReferenceField(
             $fieldName,
@@ -574,15 +577,16 @@ class AbstractTca
                         )
                     )
                 )
-            )
+            ),
+            $displayCond
         );
+
         return array($fieldName => $this->fields[$fieldName]);
     }
 
     public function addPageReference($fieldName, $allowed = 'pages', $size = 1, $maxitems = 999, $minitems = 0, $exclude = 0, $label = '')
     {
-        if (empty($label))
-        {
+        if (empty($label)) {
             $label = $this->getFieldLabel($fieldName);
         }
 

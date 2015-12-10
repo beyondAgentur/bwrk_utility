@@ -48,7 +48,12 @@ class Configuration
      * @var string
      */
     protected $labelUserFunc = '';
-    
+
+    /**
+     * @var array
+     */
+    protected $requestUpdateColumns = array();
+
     /**
      * @param string $ext
      */
@@ -207,6 +212,22 @@ class Configuration
     public function setLabelUserFunc($labelUserFunc)
     {
         $this->labelUserFunc = $labelUserFunc;
+    }
+
+    /**
+     * @param $column
+     */
+    public function addRequestUpdateColumn($column)
+    {
+        $this->requestUpdateColumns[] = $column;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRequestUpdateColumns()
+    {
+        return $this->requestUpdateColumns;
     }
 
 

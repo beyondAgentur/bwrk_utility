@@ -2,8 +2,8 @@
 
 namespace BERGWERK\BwrkUtility\Utility\Tca;
 
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Class AbstractClass
@@ -566,14 +566,28 @@ class AbstractTca
 
     public function addFalImageReference($fieldName, $exclude = 0, $minitems = 0, $maxitems = 999, $label = '', $displayCond = null)
     {
-        return $this->addSysFileReference(
-            $fieldName,
-            $exclude,
-            $minitems,
-            $maxitems,
-            $label,
-            'gif,jpg,jpeg,tif,tiff,bmp,pcx,tga,png,pdf,ai',
-            $displayCond);
+        $baseConfig = ExtensionManagementUtility::getFileFieldTCAConfig($fieldName);
+
+        if (empty($label)) {
+            $label = $this->getFieldLabel($fieldName);
+        }
+
+        $config = array_merge($baseConfig, array(
+            'minitems' => $minitems,
+            'maxitems' => $maxitems
+        ));
+
+        $this->fields[$fieldName] = array(
+            'exclude' => $exclude,
+            'label' => $label,
+            'config' => $config
+        );
+
+        if (!empty($displayCond)) {
+            $this->fields[$fieldName]['displayCond'] = $displayCond;
+        }
+
+        return array($fieldName => $this->fields[$fieldName]);
     }
 
     /**
@@ -647,15 +661,7 @@ class AbstractTca
             'size' => $size,
             'maxitems' => $maxitems,
             'minitems' => $minitems,
-            'show_thumbs' => 1,
-
-            // todo: - irgendwie passiert hier ein Fehler
-//            'wizards' => array(
-//                'suggest' => array(
-//                    'type' => 'suggest'
-//                )
-//            )
-
+            'show_thumbs' => 1
         );
 
         $this->fields[$fieldName] = array(

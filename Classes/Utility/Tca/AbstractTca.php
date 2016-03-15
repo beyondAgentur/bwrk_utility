@@ -222,7 +222,7 @@ class AbstractTca
 		return array($fieldName => $this->fields[$fieldName]);
 	}
 
-	public function addTypoLink($fieldName, $label = '', $exclude = 0, $size = 30, $max = 255, $readOnly = 0, $eval = 'trim', $displayCond = null)
+	public function addTypoLink($fieldName, $label = '', $exclude = 0, $size = 30, $max = 255, $readOnly = 0, $eval = 'trim', $displayCond = null, $mode = 'wizard')
 	{
 		if (empty($label)) {
 			$label = $this->getFieldLabel($fieldName);
@@ -246,7 +246,7 @@ class AbstractTca
 						'module' => array(
 							'name' => 'wizard_element_browser',
 							'urlParameters' => array(
-								'mode' => 'wizard'
+								'mode' => $mode
 							)
 						),
 						'JSopenParams' => 'height=300,width=500,status=0,menubar=0,scrollbars=1'
@@ -260,6 +260,11 @@ class AbstractTca
 		}
 
 		return array($fieldName => $this->fields[$fieldName]);
+	}
+
+	public function addTypoLinkFile($fieldName, $label = '', $exclude = 0, $size = 30, $max = 255, $readOnly = 0, $eval = 'trim', $displayCond = null)
+	{
+		return $this->addTypoLink($fieldName, $label, $exclude, $size, $max, $readOnly, $eval, $displayCond, 'file');
 	}
 
 	/**

@@ -321,10 +321,10 @@ class AbstractTca
         $itemsArr = array();
 
         foreach ($items as $item) {
-            array_merge($itemsArr, array(
+            $itemsArr[] = array(
                 $itemsLabelPath . '.' . $item['name'],
                 $item['value']
-            ));
+            );
         }
 
         $this->fields[$fieldName] = array(
@@ -333,6 +333,20 @@ class AbstractTca
             'config' => array(
                 'type' => 'select',
                 'items' => $itemsArr
+            )
+        );
+        return array($fieldName => $this->fields[$fieldName]);
+    }
+
+    /**
+     * @param string $fieldName
+     * @return array
+     */
+    public function addPassThrough($fieldName)
+    {
+        $this->fields[$fieldName] = array(
+            'config' => array(
+                'type' => 'passthrough'
             )
         );
         return array($fieldName => $this->fields[$fieldName]);

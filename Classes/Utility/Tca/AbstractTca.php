@@ -11,6 +11,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class AbstractTca
 {
+
 	/**
 	 *
 	 */
@@ -346,6 +347,20 @@ class AbstractTca
 	}
 
 	/**
+	 * @param string $fieldName
+	 * @return array
+	 */
+	public function addPassThrough($fieldName)
+	{
+		$this->fields[$fieldName] = array(
+			'config' => array(
+				'type' => 'passthrough'
+			)
+		);
+		return array($fieldName => $this->fields[$fieldName]);
+	}
+
+	/**
 	 * @param $fieldName
 	 * @param array $items
 	 * @param string $label
@@ -365,10 +380,10 @@ class AbstractTca
 		$itemsArr = array();
 
 		foreach ($items as $item) {
-			array_merge($itemsArr, array(
+			$itemsArr[] = array(
 				$itemsLabelPath . '.' . $item['name'],
 				$item['value']
-			));
+			);
 		}
 
 		$this->fields[$fieldName] = array(

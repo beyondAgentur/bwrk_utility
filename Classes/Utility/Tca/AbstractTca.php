@@ -90,7 +90,7 @@ class AbstractTca
 	}
 
 	/**
-	 * @param $fieldName
+	 * @param string $fieldName
 	 * @return string
 	 */
 	public function getFieldLabel($fieldName)
@@ -123,7 +123,7 @@ class AbstractTca
 	}
 
 	/**
-	 * @param $fields
+	 * @param array $fields
 	 * @return array
 	 */
 	public function removeTabs($fields)
@@ -152,7 +152,7 @@ class AbstractTca
 	 */
 
 	/**
-	 * @param $string
+	 * @param string $string
 	 */
 	public function addConfigSearchField($string)
 	{
@@ -161,7 +161,7 @@ class AbstractTca
 
 
 	/**
-	 * @param $fieldName
+	 * @param string $fieldName
 	 * @param string $label
 	 * @param int $exclude
 	 * @param string $default
@@ -189,7 +189,7 @@ class AbstractTca
 
 
 	/**
-	 * @param $fieldName
+	 * @param string $fieldName
 	 * @param string $label
 	 * @param int $exclude
 	 * @param int $size
@@ -223,6 +223,18 @@ class AbstractTca
 		return array($fieldName => $this->fields[$fieldName]);
 	}
 
+	/**
+	 * @param string $fieldName
+	 * @param string $label
+	 * @param int $exclude
+	 * @param int $size
+	 * @param int $max
+	 * @param int $readOnly
+	 * @param string $eval
+	 * @param null $displayCond
+	 * @param string $mode
+	 * @return array
+	 */
 	public function addTypoLink($fieldName, $label = '', $exclude = 0, $size = 30, $max = 255, $readOnly = 0, $eval = 'trim', $displayCond = null, $mode = 'wizard')
 	{
 		if (empty($label)) {
@@ -263,13 +275,24 @@ class AbstractTca
 		return array($fieldName => $this->fields[$fieldName]);
 	}
 
+	/**
+	 * @param string $fieldName
+	 * @param string $label
+	 * @param int $exclude
+	 * @param int $size
+	 * @param int $max
+	 * @param int $readOnly
+	 * @param string $eval
+	 * @param null $displayCond
+	 * @return array
+	 */
 	public function addTypoLinkFile($fieldName, $label = '', $exclude = 0, $size = 30, $max = 255, $readOnly = 0, $eval = 'trim', $displayCond = null)
 	{
 		return $this->addTypoLink($fieldName, $label, $exclude, $size, $max, $readOnly, $eval, $displayCond, 'file');
 	}
 
 	/**
-	 * @param $fieldName
+	 * @param string $fieldName
 	 * @param bool|false $rte
 	 * @param string $label
 	 * @param int $exclude
@@ -306,8 +329,8 @@ class AbstractTca
 
 
 	/**
-	 * @param $fieldName
-	 * @param $config
+	 * @param string $fieldName
+	 * @param array $config
 	 * @return array
 	 */
 	public function addRawField($fieldName, $config)
@@ -317,7 +340,7 @@ class AbstractTca
 	}
 
 	/**
-	 * @param $tabName
+	 * @param string $tabName
 	 * @param string $label
 	 */
 	public function addTab($tabName, $label = '')
@@ -328,6 +351,13 @@ class AbstractTca
 		$this->fields['tab_' . $tabName] = '--div--;' . $label;
 	}
 
+	/**
+	 * @param string $fieldName
+	 * @param string $itemsProcFunc
+	 * @param string $label
+	 * @param int $exclude
+	 * @return array
+	 */
 	public function addSelectFieldFunc($fieldName, $itemsProcFunc, $label = '', $exclude = 0)
 	{
 		if (empty($label)) {
@@ -361,7 +391,7 @@ class AbstractTca
 	}
 
 	/**
-	 * @param $fieldName
+	 * @param string $fieldName
 	 * @param array $items
 	 * @param string $label
 	 * @param string $itemsLabelPath
@@ -398,14 +428,14 @@ class AbstractTca
 	}
 
 	/**
-	 * @param $fieldName
-	 * @param $foreignTable
-	 * @param $foreignField
-	 * @param $foreignSortby
-	 * @param $foreignTableField
+	 * @param string $fieldName
+	 * @param string $foreignTable
+	 * @param string $foreignField
+	 * @param string $foreignSortby
+	 * @param string $foreignTableField
 	 * @param array $foreignMatchFields
-	 * @param $foreignLabel
-	 * @param $foreignSelector
+	 * @param string $foreignLabel
+	 * @param string $foreignSelector
 	 * @param int $exclude
 	 * @param int $maxitems
 	 * @param int $minitems
@@ -461,8 +491,8 @@ class AbstractTca
 	}
 
 	/**
-	 * @param $fieldName
-	 * @param $foreignTable
+	 * @param string $fieldName
+	 * @param string $foreignTable
 	 * @param int $size
 	 * @param int $maxItems
 	 * @param int $exclude
@@ -489,10 +519,10 @@ class AbstractTca
 	}
 
 	/**
-	 * @param $fieldName
-	 * @param $foreignTable
-	 * @param $mmRelationTable
-	 * @param $mmOppositeField
+	 * @param string $fieldName
+	 * @param string $foreignTable
+	 * @param string $mmRelationTable
+	 * @param string $mmOppositeField
 	 * @param string $foreignTableWhere
 	 * @param array $mmMatchFields
 	 * @param int $exclude
@@ -538,7 +568,7 @@ class AbstractTca
 	}
 
 	/**
-	 * @param $fieldName
+	 * @param string $fieldName
 	 * @param int $exclude
 	 * @param int $size
 	 * @param int $minitems
@@ -582,7 +612,7 @@ class AbstractTca
 	}
 
 	/**
-	 * @param $fieldName
+	 * @param string $fieldName
 	 * @param int $exclude
 	 * @param int $size
 	 * @param int $minitems
@@ -623,6 +653,15 @@ class AbstractTca
 		return array($fieldName => $this->fields[$fieldName]);
 	}
 
+	/**
+	 * @param string $fieldName
+	 * @param int $exclude
+	 * @param int $minitems
+	 * @param int $maxitems
+	 * @param string $label
+	 * @param null $displayCond
+	 * @return array
+	 */
 	public function addFalImageReference($fieldName, $exclude = 0, $minitems = 0, $maxitems = 999, $label = '', $displayCond = null)
 	{
 		$baseConfig = ExtensionManagementUtility::getFileFieldTCAConfig($fieldName);
@@ -707,6 +746,16 @@ class AbstractTca
 		return array($fieldName => $this->fields[$fieldName]);
 	}
 
+	/**
+	 * @param string $fieldName
+	 * @param string $allowed
+	 * @param int $size
+	 * @param int $maxitems
+	 * @param int $minitems
+	 * @param int $exclude
+	 * @param string $label
+	 * @return array
+	 */
 	public function addPageReference($fieldName, $allowed = 'pages', $size = 1, $maxitems = 999, $minitems = 0, $exclude = 0, $label = '')
 	{
 		if (empty($label)) {
@@ -721,6 +770,33 @@ class AbstractTca
 			'maxitems' => $maxitems,
 			'minitems' => $minitems,
 			'show_thumbs' => 1
+		);
+
+		$this->fields[$fieldName] = array(
+			'exclude' => $exclude,
+			'label' => $label,
+			'config' => $config
+		);
+		return array($fieldName => $this->fields[$fieldName]);
+	}
+
+	/**
+	 * @param string $fieldName
+	 * @param string $userFunc
+	 * @param array $parameters
+	 * @param int $exclude
+	 * @param string $label
+	 * @return array
+	 */
+	public function addUserFunc($fieldName, $userFunc, $parameters, $exclude = 0, $label = '') {
+		if (empty($label)) {
+			$label = $this->getFieldLabel($fieldName);
+		}
+
+		$config = array(
+			'type' => 'user',
+			'userFunc' => $userFunc,
+			'parameters' => $parameters
 		);
 
 		$this->fields[$fieldName] = array(

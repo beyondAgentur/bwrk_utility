@@ -36,8 +36,8 @@ abstract class FlexForm extends AbstractTca
     }
 
     /**
-     * @param $sheetName
-     * @param $fields
+     * @param string $sheetName
+     * @param array $fields
      */
     public function addSheet($sheetName, $fields)
     {
@@ -67,7 +67,7 @@ abstract class FlexForm extends AbstractTca
     }
 
     /**
-     * @param $sheets
+     * @param array $sheets
      * @return array
      */
     private function formSheetsForXml($sheets)
@@ -108,8 +108,8 @@ abstract class FlexForm extends AbstractTca
     }
 
     /**
-     * @param $fields
-     * @param $sheetTitle
+     * @param array $fields
+     * @param string $sheetTitle
      * @return array
      */
     private function formFieldsForXml($fields, $sheetTitle)
@@ -146,7 +146,7 @@ abstract class FlexForm extends AbstractTca
     }
 
     /**
-     * @param $values
+     * @param array $values
      * @return array
      */
     private function formValuesForXml($values)
